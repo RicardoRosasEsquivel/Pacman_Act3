@@ -2,7 +2,18 @@
 #A00829089
 
 #Refelexión
-#Aprendí la dinámica y uso de vectores para mejorar el rensdimineto de un programa
+#Aprendí la dinámica y uso de vectores para mejorar el rensdimineto de un programa, considero que antes de poder 
+#experiemtar con los comandos de clasifiaciones de vecotres facilita y enriquece las tareas , permite codigos más
+#ocomplejos y representar situaciónes rreales en simulaciónes a computadora. Considero que eta actividad reforzó
+#mi conocimeinto en phyton ademas de dotarme con las herramientas necesarias para avanzar en mis proyectos.
+#El mayor problema a enfrentar fue el mapa, la manera más facil de editarlo fue crear una columna entera donde
+#estuviera despejado el mapa y empezar a meter obstáculos con las formas que deseara, acabando con las iniciales TEC como obstáculo
+#Mi segundo reto a abordar fue el desplegar el nombre, debido a que intené usar el mismo turtle write para desplegar
+#actualizando el score y mi nombre, pero opté al fonal por manejar dos entes separados evitandome la sobre escritura.
+#El tercer problema se presentó al camiar los colores de los fantasmas y sus velocidades, el última parte fue fácil 
+#adempas añadí diferentres velocidades en su movimento buscando un cambio de dinamismo al juego, pero me resultó dificil asimilar
+#como se manejaban las velocidades y posiciónes de los fantasmas, al estar aacostumbrado a programar con MATLAB
+#por la naturalesa de mi carrera, el no tener los valores de mis variables y entidades a la vista es un poco desconcertante 
 #____Fecha: 6-Mayo-2021
 
 from random import choice
