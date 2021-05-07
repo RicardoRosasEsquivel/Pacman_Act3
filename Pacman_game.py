@@ -1,18 +1,29 @@
+#Ricardo Rosas ESquivel
+#A00829089
+
+#Refelexión
+
+#____Fecha: 6-Mayo-2021
+
 from random import choice
 from turtle import *
+from random import randrange
 from freegames import floor, vector
 
-state = {'score': 0}
-path = Turtle(visible=False)
-writer = Turtle(visible=False)
-aim = vector(5, 0)
-pacman = vector(-40, -80)
-ghosts = [
-    [vector(-180, 160), vector(5, 0)],
-    [vector(-180, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
+state = {'score': 0}              #Almacena el score
+path = Turtle(visible=False)      #Hace invisible la flecha y crea una turtle
+writer = Turtle(visible=False)    #Hace invisible la flecha y crea 1 turtle
+#Con esto creamos 2 turtles
+aim = vector(5, 0)                #Dirección de pacman
+pacman = vector(-40, -80)         #Crea un pacman vectorial en la dirección -40, -80
+
+ghosts = [                        #Crea a los fantasmas vectoriales como Posición - Dirección
+    [vector(-180, 160), vector(5, 0)],    #1Fantasma se mueve 5 steps a la derecha
+    [vector(-180, -160), vector(0, 5)],   #2Fantasma se mueve 5 steps hacia arriba
+    [vector(100, 160), vector(0, -5)],    #3Fantasma se mueve 5 steps hacia abajo
+    [vector(100, -160), vector(-5, 0)],   #4Fantasma se mueve 5 steps a la izquierda
 ]
+
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -36,6 +47,7 @@ tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
+# Esquina inferior izquierda dibuja un square
 def square(x, y):
     "Draw square using path at (x, y)."
     path.up()
@@ -59,26 +71,30 @@ def offset(point):
 def valid(point):
     "Return True if point is valid in tiles."
     index = offset(point)
-
+    #Si la calda del mapa es 0 da flaso
     if tiles[index] == 0:
         return False
 
     index = offset(point + 19)
-
+    #Si la calda del mapa es 0 da flaso
     if tiles[index] == 0:
         return False
 
     return point.x % 20 == 0 or point.y % 20 == 0
 
+
 def world():
     "Draw world using path."
     bgcolor('black')
     path.color('blue')
-
+    #Recorre la lista de tiles
     for index in range(len(tiles)):
+        #Extrae el valor que existe en la posición idex
         tile = tiles[index]
-
+        
+        #Si tile es 1
         if tile > 0:
+            #Calcula de posición(X,Y) donde se dibuja el cuadro 
             x = (index % 20) * 20 - 200
             y = 180 - (index // 20) * 20
             square(x, y)
@@ -86,7 +102,7 @@ def world():
             if tile == 1:
                 path.up()
                 path.goto(x + 10, y + 10)
-                path.dot(2, 'white')
+                path.dot(3, 'white')
 
 def move():
     "Move pacman and all ghosts."
@@ -143,17 +159,26 @@ def change(x, y):
         aim.x = x
         aim.y = y
 
-setup(420, 420, 370, 0)
-hideturtle()
+
+setup(450, 410, 370, 0)      #Se 
+hideturtle()                 #Se esconde las turtle 
 tracer(False)
+#Posición del turtlo write osea el score
 writer.goto(160, 160)
 writer.color('white')
-writer.write(state['score'])
-listen()
-onkey(lambda: change(5, 0), 'Right')
+valor  = state['score']
+writer.write(f'Score:{valor}')#Write despliega el score
+
+listen()                      #Aciva la escucha de inputs
+#Al detectar un input, se aplica la funsion change aplicada a
+#la dirección de pacman en "aim"
+onkey(lambda: change(5, 0), 'Right')  #Se usan lamdas porque no tiene argumentos 
 onkey(lambda: change(-5, 0), 'Left')
 onkey(lambda: change(0, 5), 'Up')
 onkey(lambda: change(0, -5), 'Down')
+#Llama la función world - dibuja eltablero 
 world()
+#Inicia la función de moviemiento
 move()
+#Inicia el loop gráfico, siempre dee ser el último en un programa Turtle
 done()
