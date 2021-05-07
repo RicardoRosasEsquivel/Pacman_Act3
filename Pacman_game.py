@@ -2,7 +2,7 @@
 #A00829089
 
 #Refelexión
-
+#Aprendí la dinámica y uso de vectores para mejorar el rensdimineto de un programa
 #____Fecha: 6-Mayo-2021
 
 from random import choice
@@ -12,7 +12,8 @@ from freegames import floor, vector
 
 state = {'score': 0}              #Almacena el score
 path = Turtle(visible=False)      #Hace invisible la flecha y crea una turtle
-writer = Turtle(visible=False)    #Hace invisible la flecha y crea 1 turtle
+writer = Turtle(visible=False)    #Hace invisible la flecha y crea 1 turtle ,score
+writer1 = Turtle(visible=False)    #Hace invisible la flecha y crea 1 turtle, Nombre
 #Con esto creamos 2 turtles
 aim = vector(5, 0)                #Dirección de pacman
 pacman = vector(-40, -80)         #Crea un pacman vectorial en la dirección -40, -80
@@ -24,25 +25,25 @@ ghosts = [                        #Crea a los fantasmas vectoriales como Posici�
     [vector(100, -160), vector(-5, 0)],   #4Fantasma se mueve 5 steps a la izquierda
 ]
 
-tiles = [
+tiles = [                          #Crea el mapa del juego
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0,
-    0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
@@ -71,13 +72,11 @@ def offset(point):
 def valid(point):
     "Return True if point is valid in tiles."
     index = offset(point)
-    #Si la calda del mapa es 0 da flaso
-    if tiles[index] == 0:
+    if tiles[index] == 0:             #Si la calda del mapa es 0 da flaso
         return False
 
     index = offset(point + 19)
-    #Si la calda del mapa es 0 da flaso
-    if tiles[index] == 0:
+    if tiles[index] == 0:             #Si la calda del mapa es 0 da flaso
         return False
 
     return point.x % 20 == 0 or point.y % 20 == 0
@@ -85,16 +84,15 @@ def valid(point):
 
 def world():
     "Draw world using path."
-    bgcolor('black')
-    path.color('blue')
+    bgcolor('black')          #Color de los bloques de obstáculors
+    path.color('blue')        #Color del camino libre
     #Recorre la lista de tiles
     for index in range(len(tiles)):
         #Extrae el valor que existe en la posición idex
         tile = tiles[index]
         
         #Si tile es 1
-        if tile > 0:
-            #Calcula de posición(X,Y) donde se dibuja el cuadro 
+        if tile > 0:                  #Calcula de posición(X,Y) donde se dibuja el cuadro 
             x = (index % 20) * 20 - 200
             y = 180 - (index // 20) * 20
             square(x, y)
@@ -105,53 +103,83 @@ def world():
                 path.dot(3, 'white')
 
 def move():
+    #__________________Despliega el nombre el autos
+    def info_alumnos():
+
+        writer1.up()
+        writer1.goto(0,190)
+        writer1.color('orange')
+        writer1.write('Ricardo Rosas E.', align='left', font=('Arial', 8, 'normal'))
+        
+        
+    #Lista de colores para los fantasmas
+    colores = ['red', 'green', 'orange', 'grey']
+    
     "Move pacman and all ghosts."
-    writer.undo()
-    writer.write(state['score'])
-
-    clear()
-
-    if valid(pacman + aim):
+    writer.undo()                    #Despliega el contador de puntos
+    #writer.write(state['score'])
+    valor = state['score']
+    writer.write(f'Score:{valor}')
+    
+    info_alumnos()
+    clear()                           #Liempia la ventana
+    
+    if valid(pacman + aim):           #Si es valido el movimiento, mueve a Pacman
         pacman.move(aim)
 
-    index = offset(pacman)
+    index = offset(pacman)            #Retorna la posición de pecaman en el tablero 
 
-    if tiles[index] == 1:
-        tiles[index] = 2
+    if tiles[index] == 1:             #Si la zona en la que estas ya está como 1
+        tiles[index] = 2              #A esa posición se le da 2, osea ya comió una galleta
         state['score'] += 1
+        #Calcula la posición de Pacman
         x = (index % 20) * 20 - 200
         y = 180 - (index // 20) * 20
-        square(x, y)
+        square(x, y)                  #Dibuja el square sin galleta
 
     up()
-    goto(pacman.x + 10, pacman.y + 10)
-    dot(20, 'yellow')
-
+    goto(pacman.x + 10, pacman.y + 10)#Se va la posición del pacman
+    dot(20, 'yellow')                 #Se dibuja a pacman por primera vez
+    k = 0                             #Inicio la variavl de nuefor de fantasma
+    #[vector(-180, 160), vector(5, 0)]
     for point, course in ghosts:
-        if valid(point + course):
+        #d2 = 50
+        d1 = pacman - point
+        if valid(point + course): #and d2 < d1 :      #Valida si el fantasma se puede mover en dirección course osea gost[posición, dirección]
             point.move(course)
-        else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
+        else:                          #Si no se puede mover poruqe no es valido
+            options = [                #Opciones derecha, izquierda, arriba, abajo
+                vector(0, 7),
+                vector(6, 0),
+                vector(-7, 0),
+                vector(0, -6),
             ]
-            plan = choice(options)
-            course.x = plan.x
+        
+            #if d2 < 0:
+            #    plan = options[randgange(0,2)]
+            #else:
+            #    plan = options[randrange(2,4)]
+            plan = options[randrange(0,4)]  
+            course.x = plan.x           #Mi nueva dirección para moverse
             course.y = plan.y
-
-        up()
-        goto(point.x + 10, point.y + 10)
-        dot(20, 'red')
+            #d2 = pacman - poin
+            
+        up()                            #Levanta el lapiz
+        goto(point.x + 10, point.y + 10)# Mueve al fantasma 
+        dot(15, colores[k])             #Dibuja el fantasma
+        #dot(15, 'red')
+        k = k+1
 
     update()
 
     for point, course in ghosts:
         if abs(pacman - point) < 20:
+            writer.goto(-130,0)       #Despliega "GAME OVER"
+            writer.write('GAME OVER', font=('Arial', 30, 'normal'))
             return
 
-    ontimer(move, 100)
+    ontimer(move, 50)                #Vuelve a llamar la función dentro de 100 milisegundos
+
 
 def change(x, y):
     "Change pacman aim if valid."
@@ -163,6 +191,7 @@ def change(x, y):
 setup(450, 410, 370, 0)      #Se 
 hideturtle()                 #Se esconde las turtle 
 tracer(False)
+#_________________Despliega la puntuación
 #Posición del turtlo write osea el score
 writer.goto(160, 160)
 writer.color('white')
